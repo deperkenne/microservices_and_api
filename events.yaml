@@ -1,0 +1,33 @@
+
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+      app: postgresql-pod
+      type: javaapp
+spec:
+  template:
+     metadata:
+      labels:
+          app: postgresql-pod
+          type: javaapp
+
+     spec:
+       containers:
+        - name: posgrecontain
+          image: postgres
+          env:
+           - name: POSTGRES_PASSWORD
+             value: "Kenne1989"
+           - name: POSTGRES_USER
+             value: "kenne"
+           - name: POSTGRES_DB
+             value: "mydatabase"
+
+  replicas: 3
+  selector:
+     matchLabels:
+          app: postgresql-pod
+          type: javaapp

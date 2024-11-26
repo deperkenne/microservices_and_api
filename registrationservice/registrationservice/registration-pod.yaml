@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: registration-pod
+  labels:
+    name: registration
+    app: registration-app
+spec:
+  containers:
+    - name: registration
+      image: kennetchofo/registrationimage:v1
+      ports:
+          - containerPort: 8088
+

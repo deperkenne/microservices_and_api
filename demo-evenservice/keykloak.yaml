@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keykloak-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: keykloak-deployment
+  template:
+    metadata:
+      labels:
+        app: keykloak-deployment
+    spec:
+      containers:
+        - name: keykloack
+          image: quay.io/keycloak/keycloak:25.0.4
+          ports:
+            - containerPort: 8080
+          args: ["start-dev"]
+          env:
+          - name: keykloak_DATASOURCE_USER
+            valueFrom:
+              secretKeyRef:
+                name: my-keykloack
+                key: KEYCLOAK_ADMIN
+          - name: keykloak_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-keykloack
+                key: KEYCLOAK_ADMIN_PASSWORD
+          - name: keykloak_URL
+            valueFrom:
+              configMapKeyRef:
+                name: keykload-configmap
+                key: KEYKLOAK_DATASOURCE_URL

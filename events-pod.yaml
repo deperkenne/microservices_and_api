@@ -1,0 +1,17 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+   name: events-pod
+   labels:
+     name: events-pod
+     app: event-app
+spec:
+  containers:
+    - name: events-pod
+      image: kennetchofo/eventimage:v1
+      ports:
+        - containerPort: 8089
+
+  
+
